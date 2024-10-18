@@ -11,6 +11,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("8JxkAuLl6rtrMYqQ6");
+        })();
+    </script>
+
 </head>
 <body>
     <main>
@@ -848,19 +858,27 @@
 
                 <section class="contact-form">
                     <h3 class="h3 form-title">Contact Form</h3>
-                    <form action="#" class="form" method="post" data-form>
+                    <form id="contact-form" class="form" method="post" data-form>
                         <div class="input-wrapper">
-                            <label>
-                                <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+                            <label for="name">
+                                <input type="text" name="from_name" id="name" class="form-input" placeholder="Full name" required data-form-input>
                             </label>
 
-                            <label>
-                                <input type="email" name="email" class="form-input" placeholder="Email address" autocomplete="test@example.com" required data-form-input>
+                            <label for="email">
+                                <input type="email" name="from_email" id="email" class="form-input" placeholder="Email address" autocomplete="test@example.com" required data-form-input>
+                            </label>
+
+                            <label for="subject">
+                                <input type="text" name="subject" id="subject" class="form-input subject" placeholder="Subject" required data-form-input>
                             </label>
                         </div>
 
+                        <label for="message">
+                            <textarea name="message" id="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+                        </label>
+
                         <label>
-                            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+                            <input type="text" name="website" style="display:none;">
                         </label>
 
                         <button class="form-btn" type="submit" disabled data-form-btn>

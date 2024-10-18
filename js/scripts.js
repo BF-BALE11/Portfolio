@@ -1,11 +1,7 @@
 'use strict';
 
-
-
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
-
-
 
 // sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
@@ -13,8 +9,6 @@ const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // sidebar toggle functionality for mobile
 sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
-
-
 
 // testimonials variables
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
@@ -52,8 +46,6 @@ for (let i = 0; i < testimonialsItem.length; i++) {
 // add click event to modal close button
 modalCloseBtn.addEventListener("click", testimonialsModalFunc);
 overlay.addEventListener("click", testimonialsModalFunc);
-
-
 
 // custom select variables
 const select = document.querySelector("[data-select]");
@@ -134,6 +126,45 @@ for (let i = 0; i < formInputs.length; i++) {
     });
 }
 
+let lastSubmissionTime = 0;
+
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const currentTime = Date.now();
+    const timeLimit = 20000;
+
+    // Check if the form was submitted recently
+    if (currentTime - lastSubmissionTime < timeLimit) {
+        alert('Please wait before submitting again.');
+        return;
+    }
+
+    // Check if the honeypot field is empty
+    const honeypotField = this.querySelector('input[name="website"]');
+    if (honeypotField.value !== "") {
+        alert('Spam detected! Form submission rejected.');
+        return;
+    }
+
+    let params = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        subject: document.getElementById("subject").value,
+        message: document.getElementById("message").value
+    }
+
+    // Send form data using EmailJS
+    emailjs.send('service_l17xdkj', 'template_wed9w1v', params)
+        .then(function() {
+            alert('Message sent successfully!');
+            lastSubmissionTime = Date.now();
+            document.getElementById('contact-form').reset();
+        }, function(error) {
+            console.log(error.text);
+            alert('Failed to send message');
+        });
+});
 
 
 // page navigation variables
